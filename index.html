@@ -21,12 +21,7 @@
             min-height: 100vh;
             font-family: 'Roboto', sans-serif;
             color: white;
-            /* Imagen de Pexels con un gradiente oscuro superpuesto para mejorar la lectura */
-            background-image: linear-gradient(rgba(5, 5, 10, 0.7), rgba(5, 5, 10, 0.9)), url('https://images.pexels.com/photos/5435188/pexels-photo-5435188.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background: black;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,32 +31,74 @@
 
         /* Animación del Rayo / Relámpago */
         .lightning {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: white;
-            pointer-events: none; /* Permite interactuar con la tarjeta debajo */
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.1), rgba(255,255,255,0.5));
+            pointer-events: none;
             z-index: 1;
             opacity: 0;
-            animation: flash 9s infinite;
+            animation: flash 4s infinite;
+            border-radius: inherit;
+        }
+
+        .lightning-bolt {
+            position: absolute;
+            right: 16%;
+            top: 2%;
+            width: 42px;
+            height: 220px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.5) 35%, rgba(255,255,255,0.25) 100%);
+            clip-path: polygon(46% 0%, 60% 0%, 52% 26%, 74% 26%, 18% 100%, 34% 62%, 10% 62%);
+            filter: drop-shadow(0 0 16px rgba(255,255,255,0.95));
+            transform: rotate(18deg) skewY(-6deg);
+            opacity: 0;
+            z-index: 2;
+            animation: boltFlash 4s infinite;
         }
 
         /* Tiempos clave para simular un relámpago realista */
         @keyframes flash {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 0; }
-            20% { opacity: 0.8; }
-            22% { opacity: 0.3; }
-            24% { opacity: 0.9; }
-            55% { opacity: 0.7; }
+            0%, 12%, 14%, 16%, 18%, 42%, 44%, 100% { opacity: 0; }
+            13% { opacity: 0.7; }
+            15% { opacity: 0.18; }
+            17% { opacity: 0.85; }
+            43% { opacity: 0.55; }
+        }
+
+        @keyframes boltFlash {
+            0%, 12%, 14%, 16%, 18%, 42%, 44%, 100% {
+                opacity: 0;
+                transform: rotate(18deg) skewY(-6deg) scale(0.92);
+            }
+            13% {
+                opacity: 0.95;
+                transform: rotate(18deg) skewY(-6deg) scale(1.05);
+            }
+            15% {
+                opacity: 0.28;
+                transform: rotate(18deg) skewY(-6deg) scale(0.96);
+            }
+            17% {
+                opacity: 1;
+                transform: rotate(18deg) skewY(-6deg) scale(1.08);
+            }
+            43% {
+                opacity: 0.75;
+                transform: rotate(18deg) skewY(-6deg) scale(1.03);
+            }
         }
 
         /* Contenedor central (Tarjeta flotante) */
         .glass-card {
             position: relative;
             z-index: 10;
-            background: rgba(15, 10, 15, 0.65);
+            overflow: hidden;
+            background-image: linear-gradient(rgba(5, 5, 10, 0.7), rgba(5, 5, 10, 0.9)), url('https://images.pexels.com/photos/5435188/pexels-photo-5435188.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 120, 0, 0.2);
@@ -70,14 +107,79 @@
             max-width: 560px;
             padding: 1.4rem 0.9rem 1.2rem;
             border-radius: 1.35rem;
-            animation: float 6s ease-in-out infinite;
+            animation: none;
         }
 
-        /* Animación de levitación suave */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
+        .title-glow {
+            display: inline-block;
+            animation: titleFloat 3.2s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(255, 100, 0, 0.7);
+        }
+
+        .title-glow span {
+            display: inline-block;
+            animation: letterMelt 3.2s ease-in-out infinite;
+            will-change: transform, opacity, filter;
+        }
+
+        .wave-text {
+            display: inline-block;
+            white-space: nowrap;
+            letter-spacing: -0.01em;
+        }
+
+        .wave-text span {
+            display: inline-block;
+            animation: waveLetter 1.8s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.08s);
+            will-change: transform, opacity;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes letterMelt {
+            0%, 100% {
+                transform: translateY(0) scaleY(1);
+                opacity: 1;
+                filter: blur(0px);
+            }
+            25% {
+                transform: translateY(-3px) scaleY(1.08);
+                opacity: 0.95;
+                filter: blur(0.2px);
+            }
+            50% {
+                transform: translateY(2px) scaleY(0.94);
+                opacity: 0.88;
+                filter: blur(0.8px);
+            }
+            75% {
+                transform: translateY(-2px) scaleY(1.04);
+                opacity: 0.98;
+                filter: blur(0.4px);
+            }
+        }
+
+        @keyframes waveLetter {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            25% {
+                transform: translateY(-4px) scale(1.04);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(2px) scale(0.98);
+                opacity: 0.9;
+            }
+            75% {
+                transform: translateY(-2px) scale(1.02);
+                opacity: 0.98;
+            }
         }
 
         /* Clases de tipografía personalizadas */
@@ -126,15 +228,16 @@
 </head>
 <body>
 
-    <!-- Capa del efecto relámpago -->
-    <div class="lightning"></div>
-
     <!-- Tarjeta Principal -->
     <div class="glass-card">
+        <!-- Capa del efecto relámpago -->
+        <div class="lightning"></div>
+        <div class="lightning-bolt"></div>
         
         <!-- Título -->
-        <h1 class="font-creepster text-5xl md:text-6xl text-orange-500 text-center mb-8 drop-shadow-xl" style="text-shadow: 0 0 15px rgba(255, 100, 0, 0.7);">
-            Fiesta de<br>Halloween
+        <h1 class="font-creepster text-5xl md:text-6xl text-orange-500 text-center mb-8 drop-shadow-xl title-glow mx-auto block" style="text-shadow: 0 0 15px rgba(255, 100, 0, 0.7);">
+            <span>F</span><span>i</span><span>e</span><span>s</span><span>t</span><span>a</span> <span>d</span><span>e</span><br>
+            <span>H</span><span>a</span><span>l</span><span>l</span><span>o</span><span>w</span><span>e</span><span>e</span><span>n</span>
         </h1>
         
         <!-- Contenedor de Datos -->
@@ -185,12 +288,15 @@
         <!-- Notas Finales -->
         <div class="mt-8 border-t border-orange-500/20 pt-6 flex flex-col space-y-3 text-center">
             <div>
-                <span class="block text-xs text-orange-500 font-black uppercase tracking-widest mb-1">Dress Code</span> 
-                <span class="font-cormorant text-xl text-gray-200 font-bold">Disfraz obligatorio 🧛‍♂️</span>
+                <span class="block text-xs text-orange-500 font-black uppercase tracking-widest mb-1">Dress Code</span>
+                <span class="wave-text font-cormorant text-xl text-gray-200 font-bold" aria-label="Disfraz obligatorio">
+                    <span style="--i: 0;">D</span><span style="--i: 1;">i</span><span style="--i: 2;">s</span><span style="--i: 3;">f</span><span style="--i: 4;">r</span><span style="--i: 5;">a</span><span style="--i: 6;">z</span>
+                    <span style="--i: 7;"> </span>
+                    <span style="--i: 8;">o</span><span style="--i: 9;">b</span><span style="--i: 10;">l</span><span style="--i: 11;">i</span><span style="--i: 12;">g</span><span style="--i: 13;">a</span><span style="--i: 14;">t</span><span style="--i: 15;">o</span><span style="--i: 16;">r</span><span style="--i: 17;">i</span><span style="--i: 18;">o</span>
+                </span>
             </div>
             <div>
-                <span class="block text-xs text-orange-500 font-black uppercase tracking-widest mb-1">Nota</span> 
-                <span class="font-cormorant text-xl text-gray-200 font-bold">Traer bebidas 🍻</span>
+                <span class="font-cormorant text-2xl text-orange-300 font-black">Traer bebidas 🍻</span>
             </div>
         </div>
 
