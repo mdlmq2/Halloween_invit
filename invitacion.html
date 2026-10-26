@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Halloween</title>
+    
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carga de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Creepster&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Configuración del fondo y fuentes generales */
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+            /* Imagen de Pexels con un gradiente oscuro superpuesto para mejorar la lectura */
+            background-image: linear-gradient(rgba(5, 5, 10, 0.7), rgba(5, 5, 10, 0.9)), url('https://images.pexels.com/photos/5435188/pexels-photo-5435188.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* Animación del Rayo / Relámpago */
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            pointer-events: none; /* Permite interactuar con la tarjeta debajo */
+            z-index: 1;
+            opacity: 0;
+            animation: flash 9s infinite;
+        }
+
+        /* Tiempos clave para simular un relámpago realista */
+        @keyframes flash {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 0; }
+            20% { opacity: 0.8; }
+            22% { opacity: 0.3; }
+            24% { opacity: 0.9; }
+            55% { opacity: 0.7; }
+        }
+
+        /* Contenedor central (Tarjeta flotante) */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(15, 10, 15, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 120, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 100, 0, 0.15);
+            width: min(92vw, 560px);
+            max-width: 560px;
+            padding: 1.4rem 0.9rem 1.2rem;
+            border-radius: 1.35rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Animación de levitación suave */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Clases de tipografía personalizadas */
+        .font-creepster {
+            font-family: 'Creepster', cursive;
+        }
+        .font-cormorant {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+        }
+
+        @media (max-width: 420px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .glass-card {
+                width: min(94vw, 420px);
+                padding: 1.1rem 0.7rem 0.95rem;
+                border-radius: 1.2rem;
+            }
+
+            h1 {
+                margin-bottom: 1.2rem !important;
+            }
+
+            .mobile-tight {
+                padding: 0.7rem 0.7rem !important;
+            }
+
+            .mobile-label {
+                letter-spacing: 0.12em !important;
+            }
+
+            .mobile-value {
+                font-size: 1.05rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Capa del efecto relámpago -->
+    <div class="lightning"></div>
+
+    <!-- Tarjeta Principal -->
+    <div class="glass-card">
+        
+        <!-- Título -->
+        <h1 class="font-creepster text-5xl md:text-6xl text-orange-500 text-center mb-8 drop-shadow-xl" style="text-shadow: 0 0 15px rgba(255, 100, 0, 0.7);">
+            Fiesta de<br>Halloween
+        </h1>
+        
+        <!-- Contenedor de Datos -->
+        <div class="space-y-3">
+            <div class="info-grid">
+                <!-- Fila Fecha -->
+                <div class="mobile-tight flex items-center space-x-3 bg-black/40 p-3 rounded-xl border border-white/5">
+                    <span class="text-2xl drop-shadow-md opacity-90">📅</span>
+                    <div>
+                        <span class="mobile-label block text-[10px] md:text-xs text-orange-400 font-bold uppercase tracking-[0.2em] mb-0.5">Fecha</span>
+                        <span class="mobile-value font-cormorant text-lg md:text-2xl text-gray-100 font-bold leading-none">Viernes 30/10</span>
+                    </div>
+                </div>
+
+                <!-- Fila Hora -->
+                <div class="mobile-tight flex items-center space-x-3 bg-black/40 p-3 rounded-xl border border-white/5">
+                    <span class="text-2xl drop-shadow-md opacity-90">🕒</span>
+                    <div>
+                        <span class="mobile-label block text-[10px] md:text-xs text-orange-400 font-bold uppercase tracking-[0.2em] mb-0.5">Hora</span>
+                        <span class="mobile-value font-cormorant text-lg md:text-2xl text-gray-100 font-bold leading-none">23:00 hs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fila Lugar -->
+            <div class="mobile-tight flex items-center space-x-3 bg-black/40 p-3 rounded-xl border border-white/5">
+                <span class="text-2xl drop-shadow-md opacity-90">📍</span>
+                <div>
+                    <span class="mobile-label block text-[10px] md:text-xs text-orange-400 font-bold uppercase tracking-[0.2em] mb-0.5">Lugar</span>
+                    <span class="mobile-value font-cormorant text-lg md:text-2xl text-gray-100 font-bold leading-none">Mayor Arturo Luisone 60</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Botón de Google Maps -->
+        <div class="mt-8">
+            <a href="https://maps.app.goo.gl/Urjq3hSxpSBApR528" target="_blank" rel="noopener noreferrer" 
+               class="flex justify-center items-center gap-2 w-full bg-gradient-to-r from-orange-700 to-orange-500 hover:from-orange-600 hover:to-orange-400 text-white font-black py-3.5 px-4 rounded-xl text-sm md:text-base uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,100,0,0.4)]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Abrir en Maps
+            </a>
+        </div>
+
+        <!-- Notas Finales -->
+        <div class="mt-8 border-t border-orange-500/20 pt-6 flex flex-col space-y-3 text-center">
+            <div>
+                <span class="block text-xs text-orange-500 font-black uppercase tracking-widest mb-1">Dress Code</span> 
+                <span class="font-cormorant text-xl text-gray-200 font-bold">Disfraz obligatorio 🧛‍♂️</span>
+            </div>
+            <div>
+                <span class="block text-xs text-orange-500 font-black uppercase tracking-widest mb-1">Nota</span> 
+                <span class="font-cormorant text-xl text-gray-200 font-bold">Traer bebidas 🍻</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
